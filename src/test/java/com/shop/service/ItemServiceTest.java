@@ -44,6 +44,7 @@ class ItemServiceTest {
         }
         return multipartFileList;
     }
+
     @Test
     @DisplayName("상품 등록 테스트")
     @WithMockUser(username="admin", roles ="ADMIN")
@@ -67,8 +68,5 @@ class ItemServiceTest {
         assertEquals(itemFormDto.getPrice(), item.getPrice());
         assertEquals(itemFormDto.getStockNumber(), item.getStockNumber());
         assertEquals(multipartFileList.get(0).getOriginalFilename(), itemImgList.get(0).getOriImgName());
-
-
-
     }
 }

@@ -5,12 +5,7 @@ import com.shop.repository.item.ItemRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @SpringBootTest
 @Transactional
@@ -23,17 +18,17 @@ class ItemServiceTest {
     ItemRepository itemRepository;
     @Autowired
     ItemImgRepository itemImgRepository;
-    List<MultipartFile> createMultipartFiles() throws Exception {
-        List<MultipartFile> multipartFileList = new ArrayList<>();
-
-        for (int i=0;i<5;i++){
-            String path = "/var/lib/file_repo/item/";
-            String imageName = "image"+i+".jpg";
-            MockMultipartFile multipartFile = new MockMultipartFile(path,imageName, "image/jpg", new byte[]{1,2,3,4});
-            multipartFileList.add(multipartFile);
-        }
-        return multipartFileList;
-    }
+//    List<MultipartFile> createMultipartFiles() throws Exception {
+//        List<MultipartFile> multipartFileList = new ArrayList<>();
+//
+//        for (int i=0;i<5;i++){
+//            String path = "/var/lib/file_repo/item/";
+//            String imageName = "image"+i+".jpg";
+//            MockMultipartFile multipartFile = new MockMultipartFile(path,imageName, "image/jpg", new byte[]{1,2,3,4});
+//            multipartFileList.add(multipartFile);
+//        }
+//        return multipartFileList;
+//    }
 
 //    @Test
 //    @DisplayName("상품 등록 테스트")

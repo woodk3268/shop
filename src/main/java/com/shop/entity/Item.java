@@ -45,6 +45,7 @@ public class Item extends BaseEntity{
         this.itemSellStatus = itemFormDto.getItemSellStatus();
     }
     public void removeStock(int stockNumber){
+        //재고가 구매하려는 양보다 작으면 exception , 아니면 재고 update
         int restStock = this.stockNumber -stockNumber;
         if(restStock <0){
             throw new OutOfStockException("상품의 재고가 부족합니다.(현재 재고 수량: "+ this.stockNumber+")");

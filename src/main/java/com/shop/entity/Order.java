@@ -35,10 +35,16 @@ public class Order extends BaseEntity{
     private List<OrderItem> orderItems = new ArrayList<>();
 
     public void addOrderItem(OrderItem orderItem){
+        //orderitem을 order에 추가
+        //orderitem의 order 에 this 지정
         orderItems.add(orderItem);
         orderItem.setOrder(this);
     }
     public static Order createOrder(Member member, List<OrderItem> orderItemList){
+        //Order 엔티티 생성
+        //order- member 연관관계 설정
+        //order에 orderitem add
+        //order 반환
         Order order = new Order();
         order.setMember(member);
         for(OrderItem orderItem : orderItemList){
@@ -49,6 +55,7 @@ public class Order extends BaseEntity{
         return order;
     }
     public int getTotalPrice(){
+        //orderitem 꺼내서 가격 계산
         int totalPrice = 0;
         for(OrderItem orderItem : orderItems){
             totalPrice+=orderItem.getTotalPrice();
@@ -56,6 +63,7 @@ public class Order extends BaseEntity{
         return totalPrice;
     }
     public void cancelOrder(){
+        //status cancel로 바꾸고 orderitem 각각 cancel
         this.orderStatus = OrderStatus.CANCEL;
 
         for(OrderItem orderItem : orderItems){

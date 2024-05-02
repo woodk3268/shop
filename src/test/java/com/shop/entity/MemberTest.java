@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
-
-import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @Transactional
 @TestPropertySource(locations = "classpath:application-test.properties")
@@ -27,12 +25,14 @@ public class MemberTest {
     @DisplayName("Auditing 테스트")
     @WithMockUser(username="gildong", roles = "USER")
     public void auditingTest(){
+        //member 엔티티 생성, 저장
         Member newMember = new Member();
         memberRepository.save(newMember);
 
         em.flush();
         em.clear();
 
+        //id로 member 찾아오기
         Member member = memberRepository.findById(newMember.getId())
                 .orElseThrow(EntityExistsException::new);
         System.out.println("register time : " +member.getRegTime());

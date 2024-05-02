@@ -12,13 +12,13 @@
 <th:block layout:fragment="script">
 
     <script th:inline="javascript">
-        $(document).ready(function(){
+        $(document).ready(
+            //체크한 것 바뀔 때 전체 가격 계산
+            function(){
             $("input[name=cartChkBox]").change(function(){
                 getOrderTotalPrice();
 
             });
-
-
         });
         function getOrderTotalPrice(){
             var orderTotalPrice =0;

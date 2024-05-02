@@ -29,6 +29,8 @@ public class OrderController {
     @PostMapping("/order")
     public @ResponseBody ResponseEntity order(@RequestBody @Valid OrderDto orderDto,
                                               BindingResult bindingResult, Principal principal){
+        //binding result에 error 있으면
+        //errormessage 응답
         if(bindingResult.hasErrors()){
             StringBuilder sb = new StringBuilder();
             List<FieldError> fieldErrors = bindingResult.getFieldErrors();
@@ -37,15 +39,17 @@ public class OrderController {
             }
             return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
         }
+        //email 꺼냄
         String email  = principal.getName();
         Long orderId;
-
+        //itemid, count 담긴 orderdto, email 넘겨서 order 메소드 호출
         try{
             orderId = orderService.order(orderDto, email);
         }catch (Exception e){
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 
         }
+        //결제 완료시 orderid 응답
         return new ResponseEntity<Long>(orderId, HttpStatus.OK);
     }
 
@@ -53,9 +57,9 @@ public class OrderController {
     public String orderHist(@PathVariable("page") Optional<Integer> page,
                             Principal principal, Model model){
         Pageable pageable = PageRequest.of(page.orElse(0),4);
-
+        //유저 아이디, 페이징 조건 이용해 주문목록 조회
         Page<OrderHistDto> ordersHistDtoList = orderService.getOrderList(principal.getName(), pageable);
-
+        //orders, page, maxpage 담기
         model.addAttribute("orders", ordersHistDtoList);
         model.addAttribute("page", pageable.getPageNumber());
         model.addAttribute("maxPage",5);
@@ -65,9 +69,11 @@ public class OrderController {
     @PostMapping("/order/{orderId}/cancel")
     public @ResponseBody ResponseEntity CancelOrder (
             @PathVariable("orderId") Long orderId, Principal principal){
+        //orderid , email 넘겨서 주문한 회원이 맞는지 검증
         if(!orderService.validateOrder(orderId, principal.getName())){
             return new ResponseEntity<String>("주문 취소 권한이 없습니다.", HttpStatus.FORBIDDEN);
         }
+        //order status cancel 로 바꾸고 orderitem 연관된 item 재고수 증가
         orderService.cancelOrder(orderId);
         return new ResponseEntity<Long>(orderId, HttpStatus.OK);
     }

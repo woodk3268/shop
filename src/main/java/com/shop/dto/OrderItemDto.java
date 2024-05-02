@@ -6,6 +6,7 @@ import lombok.Setter;
 
 @Getter @Setter
 public class OrderItemDto {
+    //Orderitem 엔티티 dto로 변환
     public OrderItemDto(OrderItem orderItem, String imgUrl){
         this.itemNm = orderItem.getItem().getItemNm();
         this.count = orderItem.getCount();

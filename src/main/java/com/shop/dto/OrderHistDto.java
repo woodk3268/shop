@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 public class OrderHistDto {
+    //Order 엔티티 dto로 변환
     public OrderHistDto(Order order){
         this.orderId = order.getId();
         this.orderDate = order.getOrderDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));

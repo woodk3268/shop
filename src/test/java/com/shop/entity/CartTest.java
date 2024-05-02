@@ -44,8 +44,10 @@ class CartTest {
     @Test
     @DisplayName("장바구니 회원 엔티티 매핑 조회 테스트")
     public void findCartAndMemberTest(){
+        //member 생성, 저장
         Member member = createMember();
         memberRepository.save(member);
+        //cart 생성,  member 의존관계 설정, 저장
         Cart cart = new Cart();
         cart.setMember(member);
         cartRepository.save(cart);

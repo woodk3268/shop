@@ -55,15 +55,19 @@ class OrderServiceTest {
     @Test
     @DisplayName("주문 테스트")
     public void order(){
+        //item, member 생성
         Item item = saveItem();
         Member member = saveMember();
 
+        //orderdto 에 count, itemid 담기
         OrderDto orderDto = new OrderDto();
         orderDto.setCount(10);
         orderDto.setItemId(item.getId());
 
+        //orderdto, email 넘겨서 order 메소드 호출
         Long orderId = orderService.order(orderDto, member.getEmail());
 
+        //id로 order 찾아옴.
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(EntityNotFoundException::new);
         List<OrderItem> orderItems = order.getOrderItems();
@@ -74,14 +78,18 @@ class OrderServiceTest {
     @Test
     @DisplayName("주문 취소 테스트")
     public void cancelOrder() {
+        //item, member 저장
         Item item = saveItem();
         Member member = saveMember();
 
+        //Orderdto 에 count, itemid 담음
+        //orderdto, email 넘겨서 order 메소드 호출
         OrderDto orderDto = new OrderDto();
         orderDto.setCount(10);
         orderDto.setItemId(item.getId());
         Long orderId = orderService.order(orderDto, member.getEmail());
 
+        //orderid 로 order 찾아옴. cancel
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(EntityNotFoundException::new);
         orderService.cancelOrder(orderId);

@@ -46,6 +46,7 @@ public class SecurityConfig {
                     .requestMatchers(antMatcher("/members/**")).permitAll()
                     .requestMatchers(antMatcher("/item/**")).permitAll()
                     .requestMatchers(antMatcher("/images/**")).permitAll()
+                    .requestMatchers(antMatcher("/node_modules/**")).permitAll()
                     .requestMatchers(antMatcher("/admin/**")).hasRole("ADMIN")
                     .anyRequest().authenticated();
         });
@@ -62,6 +63,7 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
         return web-> web.ignoring()
+
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 }

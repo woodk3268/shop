@@ -23,6 +23,7 @@ public class CartItem extends BaseEntity {
     private int count;
 
     public static CartItem createCartItem(Cart cart, Item item, int count){
+        //Cartitem 생성. cart. item 의존관계 설정. count set
         CartItem cartItem = new CartItem();
         cartItem.setCart(cart);
         cartItem.setItem(item);

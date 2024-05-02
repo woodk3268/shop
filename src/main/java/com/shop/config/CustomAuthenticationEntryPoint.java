@@ -19,7 +19,7 @@ public class CustomAuthenticationEntryPoint extends LoginUrlAuthenticationEntryP
                          AuthenticationException authException) throws IOException, ServletException {
         String ajaxHeader = request.getHeader("X-Requested-With");
         boolean isAjax = (ajaxHeader ==null) ? false : ajaxHeader.equals("XMLHttpRequest");
-        //boolean isAjax = "XMLHttpRequest".equals(ajaxHeader);
+
 
         if(isAjax){
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Ajax Request Denied");

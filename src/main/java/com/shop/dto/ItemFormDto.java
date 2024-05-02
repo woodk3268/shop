@@ -31,9 +31,11 @@ public class ItemFormDto {
 
     private List<ItemImgDto> itemImgDtoList = new ArrayList<>();
 
+    //상품 이미지 아이디 ,등록시에는 값 없고 수정시 이미지 아이디 담아둠
     private List<Long> itemImgIds = new ArrayList<>();
 
     private static ModelMapper modelMapper = new ModelMapper();
+
 
     public Item createItem(){
         return modelMapper.map(this, Item.class);

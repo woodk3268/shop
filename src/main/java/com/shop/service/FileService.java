@@ -12,6 +12,7 @@ import java.util.UUID;
 public class FileService {
 
     public String uploadFile(String uploadPath, String originalFileName, byte[] fileData) throws Exception{
+
         UUID uuid = UUID.randomUUID();
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));
         String savedFileName = uuid.toString()+extension;
@@ -30,6 +31,8 @@ public class FileService {
         return savedFileName;
     }
     public void deleteFile(String filePath) throws Exception{
+        //상품 이미지 업로드 경로+uuid.jpg 로 파일에 접근.삭제
+
         File deleteFile = new File(filePath);
 
         if(deleteFile.exists()){

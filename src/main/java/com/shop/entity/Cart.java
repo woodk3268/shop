@@ -21,6 +21,8 @@ public class Cart extends BaseEntity{
     private Member member;
 
     public static Cart createCart(Member member){
+        //cart 생성, 의존관계 설정
+        //Cart가 없는 회원 cart 생성해줘야 하므로
         Cart cart = new Cart();
         cart.setMember(member);
         return cart;

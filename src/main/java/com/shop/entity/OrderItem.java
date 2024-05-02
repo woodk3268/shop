@@ -25,6 +25,9 @@ public class OrderItem extends BaseEntity{
     private int count;
 
     public static OrderItem createOrderItem(Item item, int count){
+        //OrderItem 엔티티 생성, item과 연관관계 설정, count, orderprice set
+        //item 재고 감소
+        //orderitem 반환
         OrderItem orderItem = new OrderItem();
         orderItem.setItem(item);
         orderItem.setCount(count);
@@ -38,6 +41,7 @@ public class OrderItem extends BaseEntity{
     }
 
     public void cancel(){
+        //재고 증가
         this.getItem().addStock(count);
     }
 }

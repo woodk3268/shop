@@ -29,10 +29,11 @@ class CartServiceTest {
     MemberRepository memberRepository;
 
     @Autowired
-    CartService cartService;
+    CartItemRepository cartItemRepository;
 
     @Autowired
-    CartItemRepository cartItemRepository;
+    CartService cartService;
+
 
     public Item saveItem(){
         Item item = new Item();
@@ -51,15 +52,19 @@ class CartServiceTest {
     @Test
     @DisplayName("장바구니 담기 테스트")
     public void addCart(){
+        //item, member 저장
         Item item = saveItem();
         Member member = saveMember();
 
+        //CartItemDto에 count, itemid 담음
         CartItemDto cartItemDto = new CartItemDto();
         cartItemDto.setCount(5);
         cartItemDto.setItemId(item.getId());
 
+        //cartItemDto, email 넘겨서 cart에 추가
         Long cartItemId = cartService.addCart(cartItemDto, member.getEmail());
 
+        //cartItemId로 repository에서 찾기
         CartItem cartItem = cartItemRepository.findById(cartItemId)
                 .orElseThrow(EntityNotFoundException::new);
 
